@@ -10,6 +10,8 @@ var last_chunk = Vector2i(-9999, -9999)
 
 @onready var player = get_parent().get_child(1)
 
+func _on_value_entered(value):
+	return value
 func _ready():
 	randomize()
 	moisture.seed = randi()
@@ -20,26 +22,16 @@ func _ready():
 	temperature.frequency = 0.05
 	altitude.frequency = 0.03
 
-	# On génère le premier chunk tout de suite
-	var start_chunk = Vector2i(local_to_map(player.position).x / width, local_to_map(player.position).y / height)
-	generate_chunk(start_chunk)
-	last_chunk = start_chunk
-
+	genere_map()
+	
 func _process(_delta):
 	var player_tile = local_to_map(player.position)
-	var current_chunk = Vector2i(player_tile.x / width, player_tile.y / height)
-
-	# Générer seulement si le joueur entre dans un NOUVEAU chunk
-	if current_chunk != last_chunk:
-		last_chunk = current_chunk
-		print("📦 Nouveau chunk :", current_chunk)
-		generate_chunk(current_chunk)
 
 func generate_chunk(chunk_pos: Vector2i):
 	print("→ Génération du chunk :", chunk_pos)
 	var start_x = chunk_pos.x * width
 	var start_y = chunk_pos.y * height
-
+	
 	for x in range(width):
 		for y in range(height):
 			var world_x = start_x + x
@@ -58,3 +50,14 @@ func generate_chunk(chunk_pos: Vector2i):
 				tile_coords = Vector2i(3, 0) # montagne
 
 			set_cell(Vector2i(world_x, world_y), 0, tile_coords)
+
+func genere_map(taille):
+	# On génère la map
+	var pos = Vector2i(local_to_map(player.position).x / width, local_to_map(player.position).y / height)
+	
+	for i in range(taille) :
+		for j in range(taille) :
+			generate_chunk(pos)
+			pos.x +=1
+		pos.x =0
+		pos.y +=1

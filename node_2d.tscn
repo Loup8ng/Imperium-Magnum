@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://38t4lp68xn0a"]
+[gd_scene load_steps=7 format=3 uid="uid://38t4lp68xn0a"]
 
 [ext_resource type="Texture2D" uid="uid://blygxdsxtbc6d" path="res://Tiles.jpg" id="1_0e48y"]
+[ext_resource type="Script" uid="uid://b2mfucqbm2dwy" path="res://taille_map.gd" id="1_0hol4"]
 [ext_resource type="Script" uid="uid://b11cdo1se5456" path="res://tile_map_layer.gd" id="2_epypp"]
 [ext_resource type="PackedScene" uid="uid://dtuwryswr4hsu" path="res://character_body_2d.tscn" id="3_epypp"]
 
@@ -21,9 +22,23 @@ tile_size = Vector2i(33, 33)
 sources/0 = SubResource("TileSetAtlasSource_0hol4")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_0hol4")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(0.1, 0.1)
 tile_set = SubResource("TileSet_q6r6c")
 script = ExtResource("2_epypp")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_epypp")]
+position = Vector2(0, 2)
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_right = 68.5625
+offset_bottom = 31.0
+
+[node name="Button" type="Button" parent="LineEdit"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AcceptDialog" type="AcceptDialog" parent="LineEdit"]
