@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 100
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_right"):
 		position.x+=SPEED
 	if Input.is_action_just_pressed("ui_left"):
